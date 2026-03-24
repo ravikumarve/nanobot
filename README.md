@@ -9,12 +9,15 @@
     <a href="./COMMUNICATION.md"><img src="https://img.shields.io/badge/Feishu-Group-E9DBFC?style=flat&logo=feishu&logoColor=white" alt="Feishu"></a>
     <a href="./COMMUNICATION.md"><img src="https://img.shields.io/badge/WeChat-Group-C5EAB4?style=flat&logo=wechat&logoColor=white" alt="WeChat"></a>
     <a href="https://discord.gg/MnCvHqpUGB"><img src="https://img.shields.io/badge/Discord-Community-5865F2?style=flat&logo=discord&logoColor=white" alt="Discord"></a>
+    <a href="https://github.com/ravikumarve/nanobot"><img src="https://img.shields.io/github/stars/ravikumarve/nanobot?style=social" alt="GitHub Stars"></a>
   </p>
 </div>
 
 🐈 **nanobot** is an **ultra-lightweight** personal AI assistant inspired by [OpenClaw](https://github.com/openclaw/openclaw).
 
 ⚡️ Delivers core agent functionality with **99% fewer lines of code** than OpenClaw.
+
+⭐ **Love this project? Give it a star!** ⭐
 
 📏 Real-time line count: run `bash core_agent_lines.sh` to verify anytime.
 
@@ -1121,6 +1124,8 @@ PRs welcome! The codebase is intentionally small and readable. 🤗
 <p align="center">
   <em> Thanks for visiting ✨ nanobot!</em><br><br>
   <img src="https://visitor-badge.laobi.icu/badge?page_id=HKUDS.nanobot&style=for-the-badge&color=00d4ff" alt="Views">
+  <br>
+  <strong>⭐ If you find this project useful, please give it a star on GitHub! ⭐</strong>
 </p>
 
 

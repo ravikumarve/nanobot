@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ❓ Questions & Support
+    url: https://github.com/ravikumarve/nanobot/discussions
+    about: Ask questions and get help from the community
+  - name: 💡 Feature Requests
+    url: https://github.com/ravikumarve/nanobot/discussions/categories/ideas
+    about: Suggest new features and improvements
+  - name: 📚 Documentation
+    url: https://github.com/ravikumarve/nanobot/wiki
+    about: Check out our documentation and guides

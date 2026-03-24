@@ -1,0 +1,25 @@
+name: Welcome New Stargazers
+
+on:
+  watch:
+    types: [started]
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Welcome new stargazer
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Get the user who starred the repo
+            const stargazer = context.payload.sender.login;
+            
+            // Create a welcome comment
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: 1, // Create a discussion post instead if no issues exist
+              body: `🎉 Thank you for starring **nanobot**, @${stargazer}! \n\nYour support means a lot to us and helps drive the project forward. \n\n⭐ **What would you like to see next in nanobot?** Feel free to:\n- 🐛 Report bugs\n- 💡 Suggest features\n- 💬 Join our [Discord community](https://discord.gg/MnCvHqpUGB)\n- 📚 Check out our [documentation](https://github.com/${{ github.repository }}/wiki)\n\nWelcome to the nanobot community! 🚀`
+            });
