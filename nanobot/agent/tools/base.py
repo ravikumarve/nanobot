@@ -3,6 +3,8 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
+from nanobot.utils.cache import tool_cache
+
 
 class Tool(ABC):
     """
@@ -39,10 +41,34 @@ class Tool(ABC):
         """JSON Schema for tool parameters."""
         pass
 
-    @abstractmethod
     async def execute(self, **kwargs: Any) -> str:
         """
         Execute the tool with given parameters.
+
+        Args:
+            **kwargs: Tool-specific parameters.
+
+        Returns:
+            String result of the tool execution.
+        """
+        # Check cache first
+        cached_result = await tool_cache.get(self.name, **kwargs)
+        if cached_result is not None:
+            logger.debug("Cache hit for tool {}: {}", self.name, kwargs)
+            return cached_result
+
+        # Execute actual tool logic
+        result = await self._execute(**kwargs)
+
+        # Cache the result
+        await tool_cache.set(self.name, result, **kwargs)
+
+        return result
+
+    @abstractmethod
+    async def _execute(self, **kwargs: Any) -> str:
+        """
+        Actual tool implementation (override this method).
 
         Args:
             **kwargs: Tool-specific parameters.

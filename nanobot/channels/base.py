@@ -7,6 +7,8 @@ from loguru import logger
 
 from nanobot.bus.events import InboundMessage, OutboundMessage
 from nanobot.bus.queue import MessageBus
+from nanobot.config.schema import RateLimitConfig
+from nanobot.utils.rate_limit import RateLimitManager
 
 
 class BaseChannel(ABC):
@@ -30,6 +32,13 @@ class BaseChannel(ABC):
         self.config = config
         self.bus = bus
         self._running = False
+        self.rate_limit_manager = RateLimitManager()
+
+        # Configure channel-level rate limiting
+        if hasattr(config, "rate_limit") and isinstance(config.rate_limit, RateLimitConfig):
+            self.rate_limit_manager.configure_channel(
+                self.name, config.rate_limit.max_requests_per_minute, config.rate_limit.burst_size
+            )
 
     @abstractmethod
     async def start(self) -> None:
@@ -67,9 +76,7 @@ class BaseChannel(ABC):
         if "*" in allow_list:
             return True
         sender_str = str(sender_id)
-        return sender_str in allow_list or any(
-            p in allow_list for p in sender_str.split("|") if p
-        )
+        return sender_str in allow_list or any(p in allow_list for p in sender_str.split("|") if p)
 
     async def _handle_message(
         self,
@@ -97,8 +104,19 @@ class BaseChannel(ABC):
             logger.warning(
                 "Access denied for sender {} on channel {}. "
                 "Add them to allowFrom list in config to grant access.",
-                sender_id, self.name,
+                sender_id,
+                self.name,
             )
+            return
+
+        # Check rate limiting
+        rate_limit_config = getattr(self.config, "rate_limit", None)
+        if not await self.rate_limit_manager.check_rate_limit(
+            self.name, str(sender_id), rate_limit_config
+        ):
+            logger.warning("Rate limit exceeded for sender {} on channel {}", sender_id, self.name)
+            # Send rate limit message if channel supports it
+            await self._send_rate_limit_message(sender_id, chat_id)
             return
 
         msg = InboundMessage(
@@ -112,6 +130,21 @@ class BaseChannel(ABC):
         )
 
         await self.bus.publish_inbound(msg)
+
+    async def _send_rate_limit_message(self, sender_id: str, chat_id: str) -> None:
+        """Send rate limit exceeded message to user."""
+        try:
+            rate_limit_msg = OutboundMessage(
+                channel=self.name,
+                sender_id=str(sender_id),
+                chat_id=str(chat_id),
+                content="⚠️ Rate limit exceeded. Please wait before sending more messages.",
+                media=[],
+                metadata={"rate_limit": True},
+            )
+            await self.send(rate_limit_msg)
+        except Exception:
+            logger.warning("Failed to send rate limit message to {}:{}", self.name, sender_id)
 
     @property
     def is_running(self) -> bool:

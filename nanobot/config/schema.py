@@ -14,6 +14,15 @@ class Base(BaseModel):
     model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
 
 
+class RateLimitConfig(Base):
+    """Rate limiting configuration per channel/user."""
+
+    enabled: bool = False
+    max_requests_per_minute: int = 60  # Maximum requests per minute per user
+    burst_size: int = 10  # Number of requests allowed in burst
+    cooldown_seconds: int = 30  # Cooldown period after hitting rate limit
+
+
 class WhatsAppConfig(Base):
     """WhatsApp channel configuration."""
 
@@ -33,6 +42,7 @@ class TelegramConfig(Base):
         None  # HTTP/SOCKS5 proxy URL, e.g. "http://127.0.0.1:7890" or "socks5://127.0.0.1:1080"
     )
     reply_to_message: bool = False  # If true, bot replies quote the original message
+    rate_limit: RateLimitConfig = Field(default_factory=RateLimitConfig)
 
 
 class FeishuConfig(Base):
@@ -197,8 +207,6 @@ class QQConfig(Base):
     allow_from: list[str] = Field(
         default_factory=list
     )  # Allowed user openids (empty = public access)
-
-
 
 
 class ChannelsConfig(Base):

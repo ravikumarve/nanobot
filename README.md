@@ -1075,11 +1075,29 @@ PRs welcome! The codebase is intentionally small and readable. 🤗
 
 **Roadmap** — Pick an item and [open a PR](https://github.com/HKUDS/nanobot/pulls)!
 
-- [ ] **Multi-modal** — See and hear (images, voice, video)
-- [ ] **Long-term memory** — Never forget important context
-- [ ] **Better reasoning** — Multi-step planning and reflection
-- [ ] **More integrations** — Calendar and more
-- [ ] **Self-improvement** — Learn from feedback and mistakes
+### Phase 1: Foundation (Stability & Performance) ✅ COMPLETED
+- [x] **Rate Limiting & Throttling** — Per-channel, per-user rate limits to prevent API abuse
+- [x] **Tool Result Caching** — TTL-based cache for expensive tool calls (web fetch, API calls)
+- [x] **Plugin Hot-Loading** — Dynamic skill loading without restart
+- [x] **Error Recovery** — Graceful degradation when tools/channels fail
+
+### Phase 2: Intelligence (Context & Memory)
+- [ ] **Vector-based Memory** — Semantic search over MEMORY.md with embedding model
+- [ ] **Multi-Agent Collaboration** — Inter-agent communication protocol for complex workflows
+- [ ] **Undo/History Mechanism** — Rollback capability for agent actions with audit trail
+- [ ] **Better Reasoning** — Multi-step planning and reflection
+
+### Phase 3: Experience (Multi-Modal & UI)
+- [ ] **Multi-modal Input** — Image, voice, and video processing capabilities
+- [ ] **Web Dashboard** — Real-time monitoring UI with WebSocket updates
+- [ ] **Calendar Integration** — Google Calendar and Outlook sync
+- [ ] **Email Templates** — Rich HTML email responses with formatting
+
+### Phase 4: Ecosystem (Community & Growth)
+- [ ] **Plugin Marketplace** — Public skill repository with ClawHub expansion
+- [ ] **Self-Improvement** — Learn from feedback and auto-optimize behavior
+- [ ] **Analytics & Metrics** — Usage tracking and performance insights
+- [ ] **Internationalization** — Multi-language response support
 
 ### Contributors
 
