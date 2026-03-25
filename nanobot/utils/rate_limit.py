@@ -7,6 +7,8 @@ from typing import Optional
 
 from loguru import logger
 
+from nanobot.config.schema import RateLimitConfig
+
 
 class RateLimiter:
     """Token bucket rate limiter for per-channel, per-user rate limiting."""
