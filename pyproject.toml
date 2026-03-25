@@ -61,6 +61,12 @@ dev = [
     "nh3>=0.2.17,<1.0.0",
 ]
 
+web = [
+    "fastapi>=0.115.0,<1.0.0",
+    "uvicorn[standard]>=0.30.0,<1.0.0",
+    "jinja2>=3.1.0,<4.0.0",
+]
+
 [project.scripts]
 nanobot = "nanobot.cli.commands:app"
 

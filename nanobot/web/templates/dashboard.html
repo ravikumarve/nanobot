@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nanobot Dashboard</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐈 nanobot Dashboard</h1>
+            <div class="status">
+                <span class="status-indicator" id="status-indicator">●</span>
+                <span id="status-text">Connecting...</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Active Agents</h3>
+                    <div class="stat-value" id="agent-count">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Sessions</h3>
+                    <div class="stat-value" id="session-count">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Messages Processed</h3>
+                    <div class="stat-value" id="message-count">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Response Time</h3>
+                    <div class="stat-value" id="response-time">0ms</div>
+                </div>
+            </div>
+
+            <div class="realtime-section">
+                <h2>Real-time Activity</h2>
+                <div class="activity-log" id="activity-log">
+                    <!-- Activity messages will appear here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

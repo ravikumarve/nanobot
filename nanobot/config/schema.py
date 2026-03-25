@@ -327,6 +327,15 @@ class MCPServerConfig(Base):
     tool_timeout: int = 30  # seconds before a tool call is cancelled
 
 
+class WebConfig(Base):
+    """Web dashboard configuration."""
+
+    enabled: bool = False
+    host: str = "127.0.0.1"
+    port: int = 8000
+    cors_origins: list[str] = Field(default_factory=list)
+
+
 class ToolsConfig(Base):
     """Tools configuration."""
 
@@ -343,6 +352,7 @@ class Config(BaseSettings):
     channels: ChannelsConfig = Field(default_factory=ChannelsConfig)
     providers: ProvidersConfig = Field(default_factory=ProvidersConfig)
     gateway: GatewayConfig = Field(default_factory=GatewayConfig)
+    web: WebConfig = Field(default_factory=WebConfig)
     tools: ToolsConfig = Field(default_factory=ToolsConfig)
 
     @property
